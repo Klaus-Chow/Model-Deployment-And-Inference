@@ -1,0 +1,5 @@
+weight_path: "../crnnmobile/model/crnn_model.pt"
+file_onnx: "./onnx_models/crnn/crnn_model_param.onnx"
+input_img_size: [1,3,32,280]
+simplify: True
+dynamic: False

@@ -1,0 +1,2 @@
+cd ../ncnn-20220420/build/tools/
+./ncnnoptimize ../../../onnx2ncnn_model/dbnet_bankcard/dbnet_mobile_dynamic.param ../../../onnx2ncnn_model/dbnet_bankcard/dbnet_mobile_dynamic.bin ../../../onnx2ncnn_model/dbnet_bankcard/dbnet_mobile_dynamic_fp16.param ../../../onnx2ncnn_model/dbnet_bankcard/dbnet_mobile_dynamic_fp16.bin 65536

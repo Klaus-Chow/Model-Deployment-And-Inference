@@ -1,0 +1,2 @@
+以门头照检测为例：对best-mtz_sim.onnx模型进行转换ncnn，并且fp16量化
+best-mtz_sim.onnx --mtz,采用了静态输入（三个输出）,不使用grid，使用simplify

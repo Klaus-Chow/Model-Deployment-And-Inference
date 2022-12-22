@@ -1,0 +1,3 @@
+/src/notebooks/ncnn-20220420/build/tools/quantize/best_lite-sim_int8.param true 0.5 0.45
+/src/notebooks/ncnn-20220420/build/tools/quantize/best-edge-int8.param true 0.25 0.45
+/src/notebooks/ncnn-20220420/build/tools/quantize/best-text-int8.param true 0.5 0.45

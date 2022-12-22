@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../Include/Crnn/Utils_crnn.h
+string
+-
+vector
+-
+
+/src/notebooks/c++_ID_Img_Rec_Project/Src/Crnn/Utils.cpp
+Utils_crnn.h
+/src/notebooks/c++_ID_Img_Rec_Project/Src/Crnn/Utils_crnn.h
+string
+-
+fstream
+-
+algorithm
+-
+cmath
+-
+numeric
+-
+

@@ -1,0 +1,2 @@
+这个export同样适用于所有的yolo系列
+test_yolov5s_onnx同样适用于所有的yolo onnx的测试(.ipynb是调试的，py的可以直接用)

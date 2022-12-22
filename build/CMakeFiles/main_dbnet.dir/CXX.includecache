@@ -1,0 +1,12 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/src/notebooks/c++_ID_Img_Rec_Project/Src/DBnet/DBnet.cpp
+
+/src/notebooks/c++_ID_Img_Rec_Project/main_dbnet.cpp
+

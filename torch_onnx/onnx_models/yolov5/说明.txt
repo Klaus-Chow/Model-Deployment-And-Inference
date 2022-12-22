@@ -1,0 +1,8 @@
+best-lite_static_grid_sim.onnx           --sfz,采用了静态输入（1个输出）--grid将三个输出cat,可以发现使用了grid后onnx会变大
+best-lite_static_no_grid_sim.onnx         --sfz,采用了静态输入（3个输出） 不使用grid将三个输出cat
+
+
+best_dynamic.onnx --mtz,采用了动态输入（三个输出）,不可以使用grid和simplify
+best-mtz_sim.onnx --mtz,采用了静态输入（三个输出）,不使用grid，使用simplify
+
+onnx支持动态出入，但是onnxsimplify不支持动态化简，不需要所以在yolo中直接return x

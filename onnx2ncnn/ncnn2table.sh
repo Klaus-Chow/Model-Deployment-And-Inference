@@ -1,0 +1,2 @@
+cd ../ncnn-20220420/build/tools/quantize
+./ncnn2table ../../../../onnx2ncnn_model/crnn_sfz/id_crnn_mobile_fix_sim_fp32.param ../../../../onnx2ncnn_model/crnn_sfz/id_crnn_mobile_fix_sim_fp32.bin ../../../../../IDimgTrainCRNNTotal/imagelist.txt ../../../../int8_Calibration/sfzimg/id_crnn_mobile_fix_sim_fp32.table mean=[127.5,127.5,127.5] norm=[0.00784,0.00784,0.00784] shape=[32,280,3] pixel=BGR thread=8 method=kl

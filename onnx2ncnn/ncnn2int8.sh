@@ -1,0 +1,2 @@
+cd ../ncnn-20220420/build/tools/quantize
+./ncnn2int8 ../../../../onnx2ncnn_model/crnn_sfz/id_crnn_mobile_fix_sim_fp32.param  ../../../../onnx2ncnn_model/crnn_sfz/id_crnn_mobile_fix_sim_fp32.bin ../../../../onnx2ncnn_model/crnn_sfz/id_crnn_mobile_fix_sim_int8.param  ../../../../onnx2ncnn_model/crnn_sfz/id_crnn_mobile_fix_sim_int8.bin  ../../../../int8_Calibration/sfzimg/id_crnn_mobile_fix_sim_fp32.table

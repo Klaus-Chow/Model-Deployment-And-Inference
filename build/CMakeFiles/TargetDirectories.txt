@@ -1,0 +1,6 @@
+/src/notebooks/c++_ID_Img_Rec_Project/build/CMakeFiles/rebuild_cache.dir
+/src/notebooks/c++_ID_Img_Rec_Project/build/CMakeFiles/main_modelservice_virtual.dir
+/src/notebooks/c++_ID_Img_Rec_Project/build/CMakeFiles/edit_cache.dir
+/src/notebooks/c++_ID_Img_Rec_Project/build/CMakeFiles/main_crnn.dir
+/src/notebooks/c++_ID_Img_Rec_Project/build/CMakeFiles/main_virtual_yolov5.dir
+/src/notebooks/c++_ID_Img_Rec_Project/build/CMakeFiles/main_virtual_crnn.dir

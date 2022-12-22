@@ -1,0 +1,4 @@
+环境要求
+opencv-4.5.5（在身份证项目中用到了sift变换）
+cmake-3.13.0-Linux-x86_64(>VERSION 3.12.0)
+ncnn-20220420-android-vulkan.zip

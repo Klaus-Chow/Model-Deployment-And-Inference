@@ -1,0 +1,2 @@
+cd ../ncnn-20220420/build/tools/onnx
+./onnx2ncnn ../../../../torch_onnx/onnx_models/dbnet/dbnet_mobile_dynamic.onnx ../../../../onnx2ncnn_model/dbnet_bankcard/dbnet_mobile_dynamic.param ../../../../onnx2ncnn_model/dbnet_bankcard/dbnet_mobile_dynamic.bin
