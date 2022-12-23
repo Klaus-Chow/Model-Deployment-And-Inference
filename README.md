@@ -161,8 +161,7 @@ ncnn对F.relu6的支持不稳定，在转换ncnn模型的时候会出现.core溢
 官方推荐的是第二种方式，保存模型的权重，然后new class一个新模型对象，再去加载权重，这种方式在模型移动或者外部调模型时，能够直观的发现文件的层级关系，通过sys.path.append("xxxxx")来添加项目路径，再用import相关模块，这样一来都需要一定程度修改export部分的代码，或者每一个模型单独自己的export，像我这里提供的一样。  
 <font color="blue">Tips:所以添加了一种基于第一种save、load模型的方式，第一种方式是保存模型，这种方式会同时保存路径封装对象，所以只要torch.load("xxxxxxxx.pt")就行，不用再添加路径，声明对象，但是还是要上传相关的模型文件比如models，并且路径不能再修改，否则保存的.pt是按照先前的路径的，会出现线索不到模块的问题。</font>  
 ### 2022.8.24 添加配置文件，给予出项目路径和torch权重路径即可，通过torch_onnx/export_torch2onnx.py即可得到onnx模型  
-
-<center>设置：weight_path、file_onnx、input_img_size、simplify、dynamic</center>  
+设置：weight_path、file_onnx、input_img_size、simplify、dynamic
 ### 2022.8.26 优化了项目结构的代码（新增了父类Net_Creator.h，以及虚方法detect）
 1.抽象出来了一个Net_Creator.h父类，子类Crnn2.h继承父类后只要实现其detect方法即可，目前在crnn模块已经测试通过，可见main_virtual_crnn.cpp  
 2.子类yolov5_virtual.h继承父类后实现detect即可，目前yolov5模块也测试通过，见main_virtual_yolov5.cpp  
