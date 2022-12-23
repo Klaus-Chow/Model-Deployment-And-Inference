@@ -95,8 +95,8 @@ ncnn fp16量化 cd ncnn-20220420/build/tools ./ncnnoptimize best-lite.param best
 ## 2022.8.18 int8量化     
 int8的量化ncnn和tensorrt的算法原理一致，都是线性对称量化  
 需要准备：1000+的校准集（从训练集中随机抽取），需要准备这1000+张图片的路径+文件名放在一个imagelist.txt中，这里放个四五张为例如下：  
-![int8_calibration.jpg](mtzimg/int8_calibration.jpg)
-![int8calibration_imagelist.jpg](mtzimg/int8calibration_imagelist.jpg)
+![int8_calibration.jpg](int8_Calibration/mtzimg/int8_calibration.jpg)
+![int8calibration_imagelist.jpg](int8_Calibration/mtzimg/int8calibration_imagelist.jpg)
 ******************************
 
 <font size=5>ncnn int8量化步骤：</font>  
