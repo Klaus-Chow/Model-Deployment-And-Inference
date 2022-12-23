@@ -132,3 +132,57 @@ ncnn对F.relu6的支持不稳定，在转换ncnn模型的时候会出现.core溢
 **1.1 crnn onnx模型onnxruntime推理** torch_onnx->crnn_export:test_crnn_onnx.ipynb  
 **2.1 crnn ncnn fp16量化**，按照2中的修改相关算子后，使用下面的onnx2ncnn.sh将onnx模型转换成ncnn模型，接着再使用ncnnoptimize_fp.sh对模型结构进行合并优化，并且进行fp16量化。  
 **2.2 crnn ncnn int8量化**，基本流程与yolov5 int8量化一致，除了归一化的参数调整mean:[127.5,127.5,127.5],norm:[1/127.5,1/127.5,1/127.5]
+## 2022.8.19 更新onnx2ncnn文件夹，添加了onnx2ncnn.sh  更新ncnnoptimize_fp16.sh
+## 2022.8.22 更新int8量化相关ncnnoptimize_fp32.sh、ncnn2table.sh、ncnn2int8.sh
+******************************
+## 2022.8.22 更新dbnet算法
+### crnn torch转onnx、onnx转ncnn    
+**1.dbnet torch转onnx**  
+     见torch_onnx->dbnet_export:export_dbnet.py  
+**********************************
+**2.dbnet onnx转ncnn**  
+*********************************
+
+### onnxruntime推理dbnet_onnx模型、dbnet的ncnn fp16量化，int8量化
+**1.1 dbnet onnx模型onnxruntime推理** torch_onnx->dbnet_export:test_dbnet_onnx.ipynb   
+**2.1 dbnet ncnn fp16量化**,使用onnx2ncnn中的onnx2ncnn.sh将onnx模型转换成ncnn模型，接着再使用ncnnoptimize_fp.sh对模型结构进行合并优化，并且进行fp16量化。  
+**2.2 dbnet ncnn int8量化**，基本流程与yolov5 int8量化一致
+## 2022.8.23实现了一个通用版的export_torch2onnx  
+<font color="red">由于在加载torch模型的时候，有两种方案：  
+ **1.保存整个模型**<center>torch.save(net,"xxxx.pt"),  
+        torch.load("xxxx.pt");</center> 
+    
+****************************    
+
+**2.保存模型的参数**<center>torch.save(net.state_dict(),"xxxx.pt"),  
+        model_dict=torch.load("xxxx.pt",device),  
+        Model m=model(),m.load_state_dict(model_dict);</center>                                          
+</font>  
+官方推荐的是第二种方式，保存模型的权重，然后new class一个新模型对象，再去加载权重，这种方式在模型移动或者外部调模型时，能够直观的发现文件的层级关系，通过sys.path.append("xxxxx")来添加项目路径，再用import相关模块，这样一来都需要一定程度修改export部分的代码，或者每一个模型单独自己的export，像我这里提供的一样。  
+<font color="blue">Tips:所以添加了一种基于第一种save、load模型的方式，第一种方式是保存模型，这种方式会同时保存路径封装对象，所以只要torch.load("xxxxxxxx.pt")就行，不用再添加路径，声明对象，但是还是要上传相关的模型文件比如models，并且路径不能再修改，否则保存的.pt是按照先前的路径的，会出现线索不到模块的问题。</font>  
+### 2022.8.24 添加配置文件，给予出项目路径和torch权重路径即可，通过torch_onnx/export_torch2onnx.py即可得到onnx模型  
+
+<center>设置：weight_path、file_onnx、input_img_size、simplify、dynamic</center>
+### 2022.8.26 优化了项目结构的代码（新增了父类Net_Creator.h，以及虚方法detect）
+1.抽象出来了一个Net_Creator.h父类，子类Crnn2.h继承父类后只要实现其detect方法即可，目前在crnn模块已经测试通过，可见main_virtual_crnn.cpp  
+2.子类yolov5_virtual.h继承父类后实现detect即可，目前yolov5模块也测试通过，见main_virtual_yolov5.cpp  
+<font color="red">Remind:Utils_yolo.h中的#include "Yolov5.h"需要注释，并且添加"Net_Creator.h"，因为在"Net_Creator.h"中声明了Object结构体，如果Yolov5.h不注释会发生重复定义，如果不要使用这个优化的版本，那就将"Net_Creator.h"注释即可。</font>  
+3.并且对于每个模型的detect方法做了虚函数处理，后续封装一个net_detect()方法，通过传入模型类型指针来分别调用其推理函数  
+见Include/Utils/Net_Detect.h中的Net_detect，实现了函数的重载提供了crnn和yolo两种不同输入参数的推理，通过Net_detect的override去调不同输入类型的函数。  
+4.添加了ModelService_virtual.h通过类的指针对象初始化一系列项目需要的网络，推理函数见main_modelservice_virtual.cpp
+
+#### <font color="blue">Tips:通过这一部分学习了有关于虚函数的使用（父类中的定义、重载、子类中的定义）</font>  
+### 2022.8.30 添加了model_service_opt_config.txt 配置文件，  
+0.在ModelService_virtual.h中添加了config_opt结构体  
+1.main_modelservice_virtual.cpp中初始化modelService对象时需要读取txt文件。添加了读取txt文件后，并且编写函数string2vetcor将每一行string根据子串“ ”转换成vector  
+2.重载了ModelService_virtual.h中ModelService的构造函数。支持输入为配置文件的vector
+### 2022.8.26更新main_dbnet.cpp，以及相关的Include/DBNet/DBNet.h，Utils_dbnet.h以及Src中相关的源文件的实现(未完成)
+### 2022.8.31 NCNN模型结果比对onnx模型（涉及onnx输出中间层结果、NCNN输出中间结果） 
+在Include、Src中添加ncnn_modelvis的可视化方法  
+1.ncnn:逐层对比NCNN与onnx模型的输出结果，使用onnxruntime(python)和NCNN(c++)分别提取出每个节点的输出，进行对比
+ncnn:extractor.extract(node_name,preds)  
+2.onnx没有提供中间层输出的方式
+参考在torch_onnx/yolo_export中test_yolov5s_onnx.ipynb中的自定义函数find_node_by_name
+## 2022.9.12 NCNN使用GPU加速推理
+与int8模型推理一样，使用ncnn中调用vulkan的API即可  
+net.opt.use_vulkan_compute = true;
