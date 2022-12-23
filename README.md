@@ -66,4 +66,14 @@
          -onnx_test_output:存放onnxruntime推理的结果图像
 ***************  
 
-15. requirement.txt: 环境配置相关系数
+15. requirement.txt: 环境配置相关系数  
+## 2022.8.14  更新yolov5 torch转onnx   
+涉及算法yolov5、dbnet、crnn  
+2022/8/16  
+torch_onnx ：添加了yolo_export: export和<font color="red">test_yolov5s_onnx.ipynb</font>适用于所有yolo系列   
+onnx_models：yolov5存放相关的onnx模型  
+onnx_test_output: 存放onnx模型推理的结果  
+
+<font color="#DC143C"><font size="3">Remind:注意使用onnxruntime推理onnx模型时，动态输入输出和静态输入输出的区别，以yolo为列，动态输出仅仅使用于输出为三个feature maps时，如果想要使用--grid cat三个尺寸是不可以的，并且在动态输入输出时不支持onnxsimplify简化模型op；在静态输出时既可以是三个输出也可以是--grid合并的一个输出，并且也可以使用onnxsimplify</font></font>  
+<font color="#0000FF"><font size="3">Tips:在部署可以跟据部署方案来选择onnx的输入方式，比如使用onnxruntime时的动态输入和静态输入的差别，而在使用ncnn部署移动端模型时，由于ncnn本身就是支持动态输入的与onnx输入无关，所以可以统一使用静态onnx，然后sim后再转成ncnn，需要注意在ncnn的输出node需要使用-1替代完成动态输出  
+注意：onnxruntime推理的时候输入输出都是数组numpy_array，不是tensor</font></font>  
